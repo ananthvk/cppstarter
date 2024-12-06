@@ -11,11 +11,12 @@ jobs:
       - run: echo "Cloned ${{ github.repository }}"
 
       - name: Install test dependencies
-        run: |
-          sudo apt-get -y update
-          sudo apt-get install -y meson ninja-build
+        uses: awalsh128/cache-apt-pkgs-action@latest
+        with:
+          packages: meson ninja-build
+          version: 1.0
     
-      - name: Checkout cache
+      - name: Checkout build cache
         uses: actions/cache@v4
         with:
           path: |
