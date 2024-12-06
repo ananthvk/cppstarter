@@ -5,13 +5,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: echo "Job triggered by ${{ github.event_name }} event."
-
-      - name: Check out repository code
-        uses: actions/checkout@v4
-      - run: echo "Cloned ${{ github.repository }}"
-
-      - name: Install test dependencies
-        uses: awalsh128/cache-apt-pkgs-action@latest
+      - uses: actions/checkout@v4
+      - uses: awalsh128/cache-apt-pkgs-action@latest
         with:
           packages: meson ninja-build
           version: 1.0
