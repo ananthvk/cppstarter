@@ -1,0 +1,27 @@
+name: Ubuntu build (push)
+on: [push]
+jobs:
+  Explore-GitHub-Actions:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Job triggered by ${{ github.event_name }} event."
+
+      - name: Check out repository code
+        uses: actions/checkout@v4
+      - run: echo "Cloned ${{ github.repository }}"
+
+      - name: Install test dependencies
+        run: |
+          sudo apt-get -y update
+          sudo apt-get install -y meson ninja-build
+
+      - name: Setup meson build files
+        run: |
+          meson setup -Denable-tests=true builddir
+
+      - name: Executing tests
+        run: |
+          cd builddir
+          meson test -v
+
+      - run: echo "Test status - ${{ job.status }}."
